@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team DevX | Premium Web Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { background-color: #0b0e14; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .hero-gradient {
+            background: radial-gradient(circle at center, #2d1b4e 0%, #0b0e14 100%);
+        }
+        .devx-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+        .devx-card:hover { transform: translateY(-10px); border-color: #9333ea; }
+        .glow-text { text-shadow: 0 0 15px #9333ea; }
+    </style>
+</head>
+<body>
+
+    <section class="hero-gradient min-h-screen flex flex-col items-center justify-center text-center px-4">
+        <div class="mb-6 animate-pulse">
+            <h1 class="text-6xl md:text-8xl font-black tracking-tighter italic glow-text">TEAM <span class="text-purple-500">DEVX</span></h1>
+        </div>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl">আমরা সাধারণ ওয়েবসাইট বানাই না, আমরা আপনার ব্যবসার ডিজিটাল ভবিষ্যৎ গড়ি। হাই-পারফরম্যান্স এবং সিকিউর ওয়েব সলিউশন।</p>
+        
+        <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl">
+            <div class="p-6 bg-purple-900/20 rounded-2xl border border-purple-500/50">
+                <h2 class="text-4xl font-bold text-white">১৭৫৬+</h2>
+                <p class="text-purple-300">অর্ডার সম্পন্ন</p>
+            </div>
+            <div class="p-6 bg-blue-900/20 rounded-2xl border border-blue-500/50">
+                <h2 class="text-4xl font-bold text-white">৯৯%</h2>
+                <p class="text-blue-300">সন্তুষ্ট ক্লায়েন্ট</p>
+            </div>
+            <div class="p-6 bg-indigo-900/20 rounded-2xl border border-indigo-500/50">
+                <h2 class="text-4xl font-bold text-white">২৪/৭</h2>
+                <p class="text-indigo-300">সাপোর্ট সুবিধা</p>
+            </div>
+        </div>
+
+        <div class="mt-12 flex gap-4">
+            <a href="https://wa.me/8801986821790" class="bg-green-600 hover:bg-green-700 px-8 py-4 rounded-full font-bold transition">WhatsApp করুন</a>
+            <a href="https://t.me/Team_DevX_support" class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-full font-bold transition">Telegram সাপোর্ট</a>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 max-w-6xl mx-auto">
+        <h3 class="text-3xl font-bold text-center mb-16">আমাদের দক্ষতাসমূহ</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="devx-card p-8 rounded-3xl text-center">
+                <i class="fas fa-code text-5xl text-blue-400 mb-6"></i>
+                <h4 class="text-xl font-bold mb-3">Custom Coding</h4>
+                <p class="text-gray-400 text-sm">আপনার চাহিদা অনুযায়ী আমরা একদম স্ক্র্যাচ থেকে কোডিং করে ওয়েবসাইট বানাই।</p>
+            </div>
+            <div class="devx-card p-8 rounded-3xl text-center">
+                <i class="fas fa-mobile-alt text-5xl text-purple-400 mb-6"></i>
+                <h4 class="text-xl font-bold mb-3">Responsive Design</h4>
+                <p class="text-gray-400 text-sm">মোবাইল, ট্যাবলেট বা পিসি—সব ডিভাইসে আপনার সাইট দেখাবে চমৎকার।</p>
+            </div>
+            <div class="devx-card p-8 rounded-3xl text-center">
+                <i class="fas fa-rocket text-5xl text-pink-400 mb-6"></i>
+                <h4 class="text-xl font-bold mb-3">Fast & Reliable</h4>
+                <p class="text-gray-400 text-sm">গতিই সব! আমরা নিশ্চিত করি আপনার ওয়েবসাইট যেন রকেটের গতিতে লোড হয়।</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-10 border-t border-gray-800 text-center">
+        <p class="text-gray-500">© 2026 Team DevX. All Rights Reserved.</p>
+        <div class="mt-4 flex justify-center gap-6">
+            <a href="https://t.me/Team_DevX_support" class="text-gray-400 hover:text-white"><i class="fab fa-telegram-plane"></i></a>
+            <a href="tel:01986821790" class="text-gray-400 hover:text-white"><i class="fas fa-phone"></i></a>
+        </div>
+    </footer>
+
+</body>
+</html>
