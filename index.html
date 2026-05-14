@@ -3,248 +3,235 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Team DevX | The Cyber-Physical Web Agency</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&family=JetBrains+Mono&display=swap" rel="stylesheet"/>
+  <title>Team DevX | Ultimate Cyber Interface</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&family=JetBrains+Mono&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --neon-cyan: #00f5ff;
-      --neon-purple: #9d00ff;
-      --bg-dark: #02040a;
-      --glass: rgba(255, 255, 255, 0.03);
+      --cyan: #00f5ff;
+      --magenta: #ff00ff;
+      --bg: #03050a;
+      --panel: rgba(10, 15, 28, 0.8);
+      --glow: 0 0 20px rgba(0, 245, 255, 0.4);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: var(--bg-dark);
+      background-color: var(--bg);
       color: #fff;
       font-family: 'Rajdhani', sans-serif;
       overflow-x: hidden;
+      cursor: crosshair;
     }
 
-    /* Custom Cursor */
-    #cursor {
-      width: 20px; height: 20px; border: 2px solid var(--neon-cyan);
-      border-radius: 50%; position: fixed; pointer-events: none;
-      z-index: 9999; transition: transform 0.1s ease;
-      box-shadow: 0 0 15px var(--neon-cyan);
+    /* BACKGROUND MATRIX GRID */
+    #master-canvas {
+      position: fixed; top: 0; left: 0; z-index: -1;
+      filter: contrast(120%);
     }
 
-    #bg-3d { position: fixed; top: 0; left: 0; z-index: -1; }
-
-    /* Header & Navigation */
+    /* NAVIGATION HUD */
     nav {
-      padding: 25px 8%; display: flex; justify-content: space-between;
-      align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000;
-      background: rgba(2, 4, 10, 0.7); backdrop-filter: blur(15px);
-      border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+      position: fixed; top: 0; width: 100%; padding: 20px 50px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: linear-gradient(to bottom, rgba(3,5,10,0.9), transparent);
+      z-index: 1000; border-bottom: 1px dashed rgba(0,245,255,0.2);
     }
+    .brand { font-family: 'Orbitron'; font-weight: 900; letter-spacing: 4px; font-size: 1.5rem; }
+    .brand span { color: var(--cyan); text-shadow: var(--glow); }
 
-    .logo {
-      font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900;
-      letter-spacing: 5px; color: #fff; text-transform: uppercase;
-    }
-    .logo span { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
-
-    /* Hero Section */
-    .hero {
+    /* HERO SECTION */
+    .viewport {
       height: 100vh; display: flex; flex-direction: column;
       justify-content: center; align-items: center; text-align: center;
-      padding: 0 20px;
     }
 
-    .glitch {
-      font-family: 'Orbitron', sans-serif; font-size: clamp(3.5rem, 10vw, 8.5rem);
-      font-weight: 900; text-transform: uppercase; position: relative;
-      letter-spacing: 10px; color: #fff;
+    .title-box {
+      position: relative; padding: 40px;
+      border: 1px solid rgba(0,245,255,0.3);
+      background: rgba(0, 245, 255, 0.02);
+      backdrop-filter: blur(10px);
+      clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
     }
 
-    .glitch::before, .glitch::after {
-      content: 'TEAM DEVX'; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    }
-    .glitch::before { left: 2px; text-shadow: -2px 0 #ff00c1; clip: rect(44px, 450px, 56px, 0); animation: noise 3s infinite linear alternate-reverse; }
-    .glitch::after { left: -2px; text-shadow: -2px 0 #00fff9; clip: rect(44px, 450px, 56px, 0); animation: noise 2s infinite linear alternate-reverse; }
-
-    @keyframes noise {
-      0% { clip: rect(40px, 9999px, 15px, 0); }
-      100% { clip: rect(90px, 9999px, 80px, 0); }
-    }
-
-    .hero-sub {
-      font-family: 'JetBrains Mono', monospace; color: var(--neon-cyan);
-      margin-top: 20px; letter-spacing: 2px; font-size: 1.1rem;
-      background: rgba(0, 245, 255, 0.05); padding: 5px 15px; border-radius: 5px;
-    }
-
-    /* Order Counter Glassmorphism */
-    .counter-wrap {
-      margin-top: 50px; padding: 40px 80px;
-      background: var(--glass); border-radius: 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(20px); box-shadow: 0 25px 50px rgba(0,0,0,0.5);
-    }
-
-    .counter-num {
-      font-family: 'Orbitron', sans-serif; font-size: 5rem; font-weight: 900;
-      background: linear-gradient(to bottom, #fff, var(--neon-cyan));
+    .main-title {
+      font-family: 'Orbitron'; font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 900; letter-spacing: -2px; line-height: 1;
+      background: linear-gradient(to right, #fff, var(--cyan), var(--magenta));
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 30px rgba(0,245,255,0.3));
     }
 
-    /* Cyber Buttons */
-    .btn-container { display: flex; gap: 25px; margin-top: 40px; }
-    .cyber-btn {
-      padding: 15px 40px; font-family: 'Orbitron', sans-serif;
-      text-decoration: none; font-weight: bold; font-size: 0.9rem;
-      letter-spacing: 3px; color: var(--neon-cyan);
-      border: 1px solid var(--neon-cyan); position: relative;
-      transition: all 0.3s; overflow: hidden;
+    /* STATS SLIDER */
+    .hud-stats {
+      display: flex; gap: 40px; margin-top: 40px;
     }
-    .cyber-btn:hover {
-      background: var(--neon-cyan); color: #000;
-      box-shadow: 0 0 30px var(--neon-cyan);
+    .stat-item {
+      padding: 15px 30px; border-left: 3px solid var(--cyan);
+      background: rgba(255,255,255,0.03);
     }
+    .stat-val { font-family: 'JetBrains Mono'; font-size: 2.5rem; font-weight: bold; color: var(--cyan); }
+    .stat-lab { font-size: 0.7rem; letter-spacing: 3px; color: #666; text-transform: uppercase; }
 
-    /* Skills Progress */
-    .skills-section { padding: 100px 10%; background: #010206; }
-    .skill-container { margin-bottom: 30px; }
-    .skill-label { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; }
-    .progress-bg { height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; }
-    .progress-fill {
-      height: 100%; background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
-      width: 0%; transition: width 2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
-      box-shadow: 0 0 15px var(--neon-cyan);
+    /* CORE SKILLS SECTION */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px; padding: 100px 10%; background: rgba(0,0,0,0.5);
     }
-
-    /* Footer */
-    footer {
-      padding: 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);
-      font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #444;
+    .skill-card {
+      background: var(--panel); border: 1px solid rgba(255,255,255,0.05);
+      padding: 30px; position: relative; transition: 0.4s;
     }
+    .skill-card:hover { border-color: var(--cyan); transform: scale(1.02); background: rgba(0, 245, 255, 0.05); }
+    
+    .skill-header { display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; }
+    .bar-outer { height: 2px; background: rgba(255,255,255,0.1); width: 100%; overflow: hidden; }
+    .bar-inner { height: 100%; background: var(--cyan); box-shadow: 0 0 10px var(--cyan); width: 0; transition: 2s cubic-bezier(0.1, 1, 0.1, 1); }
 
-    .reveal { opacity: 0; transform: translateY(50px); transition: all 1s ease; }
-    .reveal.active { opacity: 1; transform: translateY(0); }
+    /* CONTACT BUTTONS */
+    .cta-wrap { margin-top: 60px; display: flex; gap: 20px; }
+    .btn {
+      padding: 18px 45px; font-family: 'Orbitron'; font-size: 0.8rem;
+      letter-spacing: 3px; text-decoration: none; font-weight: bold;
+      border: 1px solid var(--cyan); color: var(--cyan);
+      transition: 0.3s; position: relative;
+    }
+    .btn:hover { background: var(--cyan); color: #000; box-shadow: 0 0 40px var(--cyan); }
+
+    /* FOOTER */
+    footer { padding: 40px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.8rem; color: #444; }
+
+    @keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
+    .online { display: inline-block; width: 10px; height: 10px; background: #00ff00; border-radius: 50%; margin-right: 10px; animation: pulse 2s infinite; }
 
   </style>
 </head>
 <body>
 
-  <div id="cursor"></div>
-  <canvas id="bg-3d"></canvas>
+  <canvas id="master-canvas"></canvas>
 
   <nav>
-    <div class="logo">DEV<span>X</span></div>
-    <div style="font-family: 'JetBrains Mono'; font-size: 0.8rem; color: var(--neon-cyan);">v2.0_STABLE</div>
+    <div class="brand">TEAM <span>DEVX</span></div>
+    <div style="font-family: 'JetBrains Mono'; font-size: 0.7rem;"><span class="online"></span>SYSTEM_ONLINE_V3.0.4</div>
   </nav>
 
-  <section class="hero">
-    <div class="hero-badge" style="color: #666; margin-bottom: 10px; letter-spacing: 5px;">ESTABLISHED 2026</div>
-    <h1 class="glitch">TEAM DEVX</h1>
-    <p class="hero-sub">> INITIALIZING HIGH_SPEED_WEB_SOLUTIONS...</p>
-    
-    <div class="counter-wrap reveal">
-      <div style="font-size: 0.7rem; letter-spacing: 4px; color: #888; margin-bottom: 10px;">SUCCESSFUL_DEPLOYMENTS</div>
-      <div class="counter-num" id="orderCount">0</div>
-      <div style="color: var(--neon-cyan); letter-spacing: 2px;">অর্ডার সম্পন্ন হয়েছে</div>
+  <section class="viewport">
+    <div class="title-box">
+      <h1 class="main-title">TEAM DEVX</h1>
+      <p style="letter-spacing: 10px; color: #666; margin-top: 10px;">PREMIUM WEB ARCHITECTURE</p>
     </div>
 
-    <div class="btn-container">
-      <a href="https://wa.me/8801986821790" class="cyber-btn">WHATSAPP</a>
-      <a href="https://t.me/Team_DevX_support" class="cyber-btn" style="border-color: var(--neon-purple); color: var(--neon-purple);">TELEGRAM</a>
+    <div class="hud-stats">
+      <div class="stat-item">
+        <div class="stat-val" id="orderCount">0</div>
+        <div class="stat-lab">Total Deployments</div>
+      </div>
+      <div class="stat-item" style="border-color: var(--magenta);">
+        <div class="stat-val" style="color: var(--magenta);">99%</div>
+        <div class="stat-lab">Uptime Reliability</div>
+      </div>
+    </div>
+
+    <div class="cta-wrap">
+      <a href="https://wa.me/8801986821790" class="btn">INITIALIZE WHATSAPP</a>
+      <a href="https://t.me/Team_DevX_support" class="btn" style="border-color: var(--magenta); color: var(--magenta);">TELEGRAM_LINK</a>
     </div>
   </section>
 
-  <section class="skills-section">
-    <h2 style="font-family: 'Orbitron'; margin-bottom: 50px; font-size: 2rem;">CORE_COMPETENCIES</h2>
-    
-    <div class="skill-container reveal">
-      <div class="skill-label"><span>FULLSTACK DEVELOPMENT</span><span>98%</span></div>
-      <div class="progress-bg"><div class="progress-fill" data-width="98%"></div></div>
+  <section class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-header"><span>FRONTEND_ENGINEERING</span><span>98%</span></div>
+      <div class="bar-outer"><div class="bar-inner" style="width: 98%;"></div></div>
     </div>
-    
-    <div class="skill-container reveal">
-      <div class="skill-label"><span>CYBER SECURITY</span><span>92%</span></div>
-      <div class="progress-bg"><div class="progress-fill" data-width="92%"></div></div>
+    <div class="skill-card">
+      <div class="skill-header"><span>BACKEND_STRUCTURE</span><span>94%</span></div>
+      <div class="bar-outer"><div class="bar-inner" style="width: 94%;"></div></div>
     </div>
-
-    <div class="skill-container reveal">
-      <div class="skill-label"><span>UI/UX ARCHITECTURE</span><span>95%</span></div>
-      <div class="progress-bg"><div class="progress-fill" data-width="95%"></div></div>
+    <div class="skill-card">
+      <div class="skill-header"><span>SECURITY_ENCRYPTION</span><span>90%</span></div>
+      <div class="bar-outer"><div class="bar-inner" style="width: 90%;"></div></div>
     </div>
   </section>
 
   <footer>
-    &copy; 2026 TEAM DEVX. ALL_SYSTEMS_OPERATIONAL. <br>
-    MADE BY AI COLLABORATION.
+    [ TERMINAL_ID: 01986821790 ] - NO ACCESS WITHOUT AUTHORIZATION <br>
+    &copy; 2026 TEAM DEVX. BUILT FOR THE FUTURE.
   </footer>
 
   <script>
-    // 1. Three.js 3D Background
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg-3d'), antialias: true, alpha: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    const canvas = document.getElementById('master-canvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
 
-    const geometry = new THREE.IcosahedronGeometry(10, 1);
-    const material = new THREE.MeshBasicMaterial({ color: 0x00f5ff, wireframe: true, transparent: true, opacity: 0.1 });
-    const sphere = new THREE.Mesh(geometry, material);
-    scene.add(sphere);
-
-    camera.position.z = 20;
-
-    function animate3D() {
-      requestAnimationFrame(animate3D);
-      sphere.rotation.y += 0.002;
-      sphere.rotation.x += 0.001;
-      renderer.render(scene, camera);
-    }
-    animate3D();
-
-    // 2. Custom Cursor
-    const cursor = document.querySelector('#cursor');
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
-
-    // 3. Counter Animation
-    function startCounter() {
-      const target = 1756;
-      const countEl = document.getElementById('orderCount');
-      let current = 0;
-      const speed = target / 100;
-      
-      const update = () => {
-        if(current < target) {
-          current += Math.ceil(speed);
-          countEl.innerText = current > target ? target : current;
-          setTimeout(update, 20);
-        }
+    function init() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      particles = [];
+      for(let i=0; i<150; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          r: Math.random() * 2
+        });
       }
-      update();
     }
 
-    // 4. Reveal & Skills Animation
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting) {
-          entry.target.classList.add('active');
-          if(entry.target.id === 'orderCount') startCounter();
-          
-          const fills = entry.target.querySelectorAll('.progress-fill');
-          fills.forEach(fill => fill.style.width = fill.getAttribute('data-width'));
+    function draw() {
+      ctx.fillStyle = 'rgba(3, 5, 10, 0.2)';
+      ctx.fillRect(0, 0, w, h);
+
+      // Grid Lines
+      ctx.strokeStyle = 'rgba(0, 245, 255, 0.05)';
+      ctx.lineWidth = 0.5;
+      for(let i=0; i<w; i+=50) { ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, h); ctx.stroke(); }
+      for(let i=0; i<h; i+=50) { ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(w, i); ctx.stroke(); }
+
+      particles.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if(p.x < 0 || p.x > w) p.vx *= -1;
+        if(p.y < 0 || p.y > h) p.vy *= -1;
+
+        ctx.fillStyle = 'rgba(0, 245, 255, 0.5)';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fill();
+
+        // Advanced Connection Logic
+        for(let j=i+1; j<particles.length; j++) {
+          let p2 = particles[j];
+          let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
+          if(dist < 120) {
+            ctx.strokeStyle = `rgba(0, 245, 255, ${1 - dist/120})`;
+            ctx.lineWidth = 0.2;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.stroke();
+          }
         }
       });
-    }, { threshold: 0.5 });
+      requestAnimationFrame(draw);
+    }
 
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    observer.observe(document.getElementById('orderCount'));
+    // Smooth Counter
+    function count() {
+      let target = 1756;
+      let curr = 0;
+      let el = document.getElementById('orderCount');
+      let itv = setInterval(() => {
+        curr += 17;
+        if(curr >= target) { curr = target; clearInterval(itv); }
+        el.innerText = curr.toLocaleString() + '+';
+      }, 20);
+    }
 
-    window.addEventListener('resize', () => {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    });
+    window.addEventListener('resize', init);
+    init();
+    draw();
+    setTimeout(count, 500);
+
   </script>
 </body>
 </html>
