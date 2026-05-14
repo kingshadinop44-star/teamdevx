@@ -1,83 +1,250 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Team DevX | Premium Web Solutions</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body { background-color: #0b0e14; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .hero-gradient {
-            background: radial-gradient(circle at center, #2d1b4e 0%, #0b0e14 100%);
-        }
-        .devx-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: 0.3s;
-        }
-        .devx-card:hover { transform: translateY(-10px); border-color: #9333ea; }
-        .glow-text { text-shadow: 0 0 15px #9333ea; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Team DevX | The Cyber-Physical Web Agency</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&family=JetBrains+Mono&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --neon-cyan: #00f5ff;
+      --neon-purple: #9d00ff;
+      --bg-dark: #02040a;
+      --glass: rgba(255, 255, 255, 0.03);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; cursor: none; }
+
+    body {
+      background: var(--bg-dark);
+      color: #fff;
+      font-family: 'Rajdhani', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Custom Cursor */
+    #cursor {
+      width: 20px; height: 20px; border: 2px solid var(--neon-cyan);
+      border-radius: 50%; position: fixed; pointer-events: none;
+      z-index: 9999; transition: transform 0.1s ease;
+      box-shadow: 0 0 15px var(--neon-cyan);
+    }
+
+    #bg-3d { position: fixed; top: 0; left: 0; z-index: -1; }
+
+    /* Header & Navigation */
+    nav {
+      padding: 25px 8%; display: flex; justify-content: space-between;
+      align-items: center; position: fixed; width: 100%; top: 0; z-index: 1000;
+      background: rgba(2, 4, 10, 0.7); backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif; font-size: 1.8rem; font-weight: 900;
+      letter-spacing: 5px; color: #fff; text-transform: uppercase;
+    }
+    .logo span { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; align-items: center; text-align: center;
+      padding: 0 20px;
+    }
+
+    .glitch {
+      font-family: 'Orbitron', sans-serif; font-size: clamp(3.5rem, 10vw, 8.5rem);
+      font-weight: 900; text-transform: uppercase; position: relative;
+      letter-spacing: 10px; color: #fff;
+    }
+
+    .glitch::before, .glitch::after {
+      content: 'TEAM DEVX'; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    }
+    .glitch::before { left: 2px; text-shadow: -2px 0 #ff00c1; clip: rect(44px, 450px, 56px, 0); animation: noise 3s infinite linear alternate-reverse; }
+    .glitch::after { left: -2px; text-shadow: -2px 0 #00fff9; clip: rect(44px, 450px, 56px, 0); animation: noise 2s infinite linear alternate-reverse; }
+
+    @keyframes noise {
+      0% { clip: rect(40px, 9999px, 15px, 0); }
+      100% { clip: rect(90px, 9999px, 80px, 0); }
+    }
+
+    .hero-sub {
+      font-family: 'JetBrains Mono', monospace; color: var(--neon-cyan);
+      margin-top: 20px; letter-spacing: 2px; font-size: 1.1rem;
+      background: rgba(0, 245, 255, 0.05); padding: 5px 15px; border-radius: 5px;
+    }
+
+    /* Order Counter Glassmorphism */
+    .counter-wrap {
+      margin-top: 50px; padding: 40px 80px;
+      background: var(--glass); border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px); box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    }
+
+    .counter-num {
+      font-family: 'Orbitron', sans-serif; font-size: 5rem; font-weight: 900;
+      background: linear-gradient(to bottom, #fff, var(--neon-cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+
+    /* Cyber Buttons */
+    .btn-container { display: flex; gap: 25px; margin-top: 40px; }
+    .cyber-btn {
+      padding: 15px 40px; font-family: 'Orbitron', sans-serif;
+      text-decoration: none; font-weight: bold; font-size: 0.9rem;
+      letter-spacing: 3px; color: var(--neon-cyan);
+      border: 1px solid var(--neon-cyan); position: relative;
+      transition: all 0.3s; overflow: hidden;
+    }
+    .cyber-btn:hover {
+      background: var(--neon-cyan); color: #000;
+      box-shadow: 0 0 30px var(--neon-cyan);
+    }
+
+    /* Skills Progress */
+    .skills-section { padding: 100px 10%; background: #010206; }
+    .skill-container { margin-bottom: 30px; }
+    .skill-label { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; }
+    .progress-bg { height: 4px; background: rgba(255,255,255,0.05); border-radius: 2px; }
+    .progress-fill {
+      height: 100%; background: linear-gradient(90deg, var(--neon-purple), var(--neon-cyan));
+      width: 0%; transition: width 2s cubic-bezier(0.17, 0.67, 0.83, 0.67);
+      box-shadow: 0 0 15px var(--neon-cyan);
+    }
+
+    /* Footer */
+    footer {
+      padding: 50px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);
+      font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: #444;
+    }
+
+    .reveal { opacity: 0; transform: translateY(50px); transition: all 1s ease; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+
+  </style>
 </head>
 <body>
 
-    <section class="hero-gradient min-h-screen flex flex-col items-center justify-center text-center px-4">
-        <div class="mb-6 animate-pulse">
-            <h1 class="text-6xl md:text-8xl font-black tracking-tighter italic glow-text">TEAM <span class="text-purple-500">DEVX</span></h1>
-        </div>
-        <p class="text-gray-400 text-lg md:text-xl max-w-2xl">আমরা সাধারণ ওয়েবসাইট বানাই না, আমরা আপনার ব্যবসার ডিজিটাল ভবিষ্যৎ গড়ি। হাই-পারফরম্যান্স এবং সিকিউর ওয়েব সলিউশন।</p>
-        
-        <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-4xl">
-            <div class="p-6 bg-purple-900/20 rounded-2xl border border-purple-500/50">
-                <h2 class="text-4xl font-bold text-white">১৭৫৬+</h2>
-                <p class="text-purple-300">অর্ডার সম্পন্ন</p>
-            </div>
-            <div class="p-6 bg-blue-900/20 rounded-2xl border border-blue-500/50">
-                <h2 class="text-4xl font-bold text-white">৯৯%</h2>
-                <p class="text-blue-300">সন্তুষ্ট ক্লায়েন্ট</p>
-            </div>
-            <div class="p-6 bg-indigo-900/20 rounded-2xl border border-indigo-500/50">
-                <h2 class="text-4xl font-bold text-white">২৪/৭</h2>
-                <p class="text-indigo-300">সাপোর্ট সুবিধা</p>
-            </div>
-        </div>
+  <div id="cursor"></div>
+  <canvas id="bg-3d"></canvas>
 
-        <div class="mt-12 flex gap-4">
-            <a href="https://wa.me/8801986821790" class="bg-green-600 hover:bg-green-700 px-8 py-4 rounded-full font-bold transition">WhatsApp করুন</a>
-            <a href="https://t.me/Team_DevX_support" class="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-full font-bold transition">Telegram সাপোর্ট</a>
-        </div>
-    </section>
+  <nav>
+    <div class="logo">DEV<span>X</span></div>
+    <div style="font-family: 'JetBrains Mono'; font-size: 0.8rem; color: var(--neon-cyan);">v2.0_STABLE</div>
+  </nav>
 
-    <section class="py-20 px-6 max-w-6xl mx-auto">
-        <h3 class="text-3xl font-bold text-center mb-16">আমাদের দক্ষতাসমূহ</h3>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="devx-card p-8 rounded-3xl text-center">
-                <i class="fas fa-code text-5xl text-blue-400 mb-6"></i>
-                <h4 class="text-xl font-bold mb-3">Custom Coding</h4>
-                <p class="text-gray-400 text-sm">আপনার চাহিদা অনুযায়ী আমরা একদম স্ক্র্যাচ থেকে কোডিং করে ওয়েবসাইট বানাই।</p>
-            </div>
-            <div class="devx-card p-8 rounded-3xl text-center">
-                <i class="fas fa-mobile-alt text-5xl text-purple-400 mb-6"></i>
-                <h4 class="text-xl font-bold mb-3">Responsive Design</h4>
-                <p class="text-gray-400 text-sm">মোবাইল, ট্যাবলেট বা পিসি—সব ডিভাইসে আপনার সাইট দেখাবে চমৎকার।</p>
-            </div>
-            <div class="devx-card p-8 rounded-3xl text-center">
-                <i class="fas fa-rocket text-5xl text-pink-400 mb-6"></i>
-                <h4 class="text-xl font-bold mb-3">Fast & Reliable</h4>
-                <p class="text-gray-400 text-sm">গতিই সব! আমরা নিশ্চিত করি আপনার ওয়েবসাইট যেন রকেটের গতিতে লোড হয়।</p>
-            </div>
-        </div>
-    </section>
+  <section class="hero">
+    <div class="hero-badge" style="color: #666; margin-bottom: 10px; letter-spacing: 5px;">ESTABLISHED 2026</div>
+    <h1 class="glitch">TEAM DEVX</h1>
+    <p class="hero-sub">> INITIALIZING HIGH_SPEED_WEB_SOLUTIONS...</p>
+    
+    <div class="counter-wrap reveal">
+      <div style="font-size: 0.7rem; letter-spacing: 4px; color: #888; margin-bottom: 10px;">SUCCESSFUL_DEPLOYMENTS</div>
+      <div class="counter-num" id="orderCount">0</div>
+      <div style="color: var(--neon-cyan); letter-spacing: 2px;">অর্ডার সম্পন্ন হয়েছে</div>
+    </div>
 
-    <footer class="py-10 border-t border-gray-800 text-center">
-        <p class="text-gray-500">© 2026 Team DevX. All Rights Reserved.</p>
-        <div class="mt-4 flex justify-center gap-6">
-            <a href="https://t.me/Team_DevX_support" class="text-gray-400 hover:text-white"><i class="fab fa-telegram-plane"></i></a>
-            <a href="tel:01986821790" class="text-gray-400 hover:text-white"><i class="fas fa-phone"></i></a>
-        </div>
-    </footer>
+    <div class="btn-container">
+      <a href="https://wa.me/8801986821790" class="cyber-btn">WHATSAPP</a>
+      <a href="https://t.me/Team_DevX_support" class="cyber-btn" style="border-color: var(--neon-purple); color: var(--neon-purple);">TELEGRAM</a>
+    </div>
+  </section>
 
+  <section class="skills-section">
+    <h2 style="font-family: 'Orbitron'; margin-bottom: 50px; font-size: 2rem;">CORE_COMPETENCIES</h2>
+    
+    <div class="skill-container reveal">
+      <div class="skill-label"><span>FULLSTACK DEVELOPMENT</span><span>98%</span></div>
+      <div class="progress-bg"><div class="progress-fill" data-width="98%"></div></div>
+    </div>
+    
+    <div class="skill-container reveal">
+      <div class="skill-label"><span>CYBER SECURITY</span><span>92%</span></div>
+      <div class="progress-bg"><div class="progress-fill" data-width="92%"></div></div>
+    </div>
+
+    <div class="skill-container reveal">
+      <div class="skill-label"><span>UI/UX ARCHITECTURE</span><span>95%</span></div>
+      <div class="progress-bg"><div class="progress-fill" data-width="95%"></div></div>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 TEAM DEVX. ALL_SYSTEMS_OPERATIONAL. <br>
+    MADE BY AI COLLABORATION.
+  </footer>
+
+  <script>
+    // 1. Three.js 3D Background
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: document.querySelector('#bg-3d'), antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const geometry = new THREE.IcosahedronGeometry(10, 1);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00f5ff, wireframe: true, transparent: true, opacity: 0.1 });
+    const sphere = new THREE.Mesh(geometry, material);
+    scene.add(sphere);
+
+    camera.position.z = 20;
+
+    function animate3D() {
+      requestAnimationFrame(animate3D);
+      sphere.rotation.y += 0.002;
+      sphere.rotation.x += 0.001;
+      renderer.render(scene, camera);
+    }
+    animate3D();
+
+    // 2. Custom Cursor
+    const cursor = document.querySelector('#cursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    // 3. Counter Animation
+    function startCounter() {
+      const target = 1756;
+      const countEl = document.getElementById('orderCount');
+      let current = 0;
+      const speed = target / 100;
+      
+      const update = () => {
+        if(current < target) {
+          current += Math.ceil(speed);
+          countEl.innerText = current > target ? target : current;
+          setTimeout(update, 20);
+        }
+      }
+      update();
+    }
+
+    // 4. Reveal & Skills Animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          entry.target.classList.add('active');
+          if(entry.target.id === 'orderCount') startCounter();
+          
+          const fills = entry.target.querySelectorAll('.progress-fill');
+          fills.forEach(fill => fill.style.width = fill.getAttribute('data-width'));
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    observer.observe(document.getElementById('orderCount'));
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  </script>
 </body>
 </html>
